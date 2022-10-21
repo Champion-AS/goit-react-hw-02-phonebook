@@ -6,27 +6,39 @@ import { nanoid } from 'nanoid';
 export class App extends Component {
   state = {
     contacts: [],
-    name: '',
-    number: '',
+    filter: '',
   };
-  
-  
-  onChangeName = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  
-  }
- handleSubmit = e => {
-    e.preventDefault();
+
+  handleDeleteUser = id => {
     this.setState(prevState => {
-      return {
-        contacts: [
-          ...prevState.contacts,
-          { name: this.state.name, number: this.state.number, id: nanoid() },
-        ],
-      };
+      return { contacts: prevState.contacts.filter(item => item.id !== id) };
     });
   };
 
+  handleFilteerConnect = () => {
+    return this.state.contacts.filter(elem => elem.name.toLowerCase().includes(this.state.filter.toLowerCase()));
+}
+  
+  onChangeName = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+   
+  }
+  handleSubmit = (name, number) => {
+   if (this.state.contacts.some(contact => contact.name === name)) {
+      return alert(`${name} is already in contacts`);
+    }
+      this.setState(prevState => {
+      return {
+        contacts: [
+          ...prevState.contacts,
+          { name, number, id: nanoid() },
+        ],
+        name: '',
+        number: '',
+      };
+    });
+  };
+ 
 
 
   render() {
@@ -36,7 +48,9 @@ export class App extends Component {
         <Phonebook
           handleAddContact={this.handleSubmit}
           onChangeName={this.onChangeName}
-          contacts={this.state.contacts}
+          contactsFilter={this.handleFilteerConnect()}
+          filter={this.state.filter}
+          delete={this.handleDeleteUser}
         />
 
       </div>
