@@ -1,6 +1,7 @@
 import {Phonebook} from './Phonebook/Phonebook'
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 
 export class App extends Component {
@@ -33,8 +34,7 @@ export class App extends Component {
           ...prevState.contacts,
           { name, number, id: nanoid() },
         ],
-        name: '',
-        number: '',
+        
       };
     });
   };
@@ -43,8 +43,17 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
-      
+      <div
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          fontSize: 16,
+          color: '#010101',
+          gap: 10,
+        }}>
         <Phonebook
           handleAddContact={this.handleSubmit}
           onChangeName={this.onChangeName}
@@ -58,4 +67,7 @@ export class App extends Component {
   }
 }
 
-
+App.propTypes = {
+    contacts: PropTypes.arrayOf(PropTypes.shape({id:PropTypes.string, name: PropTypes.string, number: PropTypes.number})).isRequired,
+    filter: PropTypes.string,
+}

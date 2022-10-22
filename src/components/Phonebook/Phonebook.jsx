@@ -1,4 +1,5 @@
 import { Component } from "react"
+import PropTypes from 'prop-types';
 
 export class Phonebook extends Component {
     state = {
@@ -45,7 +46,7 @@ export class Phonebook extends Component {
             <button type="submit" >Add contact</button>
             </form>
             
-        <label>Find contacts by name</label>
+        <p>Find contacts by name</p>
         <input type="text" name="filter" value={this.props.filter} onChange={this.props.onChangeName} />
         <h2>Contacts</h2>
         <ul>
@@ -53,7 +54,7 @@ export class Phonebook extends Component {
         <li key={contact.id}>
         <p>{contact.name}</p>
         <p>{contact.number}</p>
-        <button onClick={ () => this.props.delete(contact.id)} >delete</button>
+        <button type="button" onClick={ () => this.props.delete(contact.id)} >delete</button>
         </li>
         ))}
 
@@ -61,4 +62,8 @@ export class Phonebook extends Component {
     </>
 )
 }
+}
+Phonebook.propTypes = {
+    name: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
 }
