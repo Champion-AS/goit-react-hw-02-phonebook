@@ -2,9 +2,21 @@ import {Phonebook} from './Phonebook/Phonebook'
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
+import { Filter } from './Filter/Filter';
+import {ContactList} from './ContactList/ContactList';
 
 
 export class App extends Component {
+  static propTypes = {
+    filter: PropTypes.string,
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+      })
+    ),
+  };
   state = {
     contacts: [],
     filter: '',
@@ -54,20 +66,22 @@ export class App extends Component {
           color: '#010101',
           gap: 10,
         }}>
+        <h1>Phonebook</h1>
         <Phonebook
           handleAddContact={this.handleSubmit}
           onChangeName={this.onChangeName}
-          contactsFilter={this.handleFilteerConnect()}
-          filter={this.state.filter}
-          delete={this.handleDeleteUser}
         />
+        <h2>Contacts</h2>
+        <Filter onChangeName={this.onChangeName} filter={this.state.filter} />
+        <ContactList
+          onFilterContacts={this.handleFilteerConnect()}
+          deleteUser={this.handleDeleteUser}
+        />
+
 
       </div>
     );
   }
 }
 
-App.propTypes = {
-    contacts: PropTypes.arrayOf(PropTypes.shape({id:PropTypes.string, name: PropTypes.string, number: PropTypes.number})).isRequired,
-    filter: PropTypes.string,
-}
+

@@ -46,24 +46,11 @@ export class Phonebook extends Component {
             <button type="submit" >Add contact</button>
             </form>
             
-        <p>Find contacts by name</p>
-        <input type="text" name="filter" value={this.props.filter} onChange={this.props.onChangeName} />
-        <h2>Contacts</h2>
-        <ul>
-        {this.props.contactsFilter.map(contact => (
-        <li key={contact.id}>
-        <p>{contact.name}</p>
-        <p>{contact.number}</p>
-        <button type="button" onClick={ () => this.props.delete(contact.id)} >delete</button>
-        </li>
-        ))}
-
-        </ul>
-    </>
+       </>
 )
 }
 }
 Phonebook.propTypes = {
-    name: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    number: PropTypes.number,
 }
