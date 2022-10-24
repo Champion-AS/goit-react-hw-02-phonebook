@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 export class ContactList extends Component {
   render() {
     const { onFilterContacts, deleteUser } = this.props;
@@ -18,3 +20,14 @@ export class ContactList extends Component {
     );
   }
 }
+
+ContactList.propTypes = {
+  onFilterContacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      number: PropTypes.string,
+      name: PropTypes.string,
+      id: PropTypes.string,
+    })
+  ),
+  deleteUser: PropTypes.func,
+};

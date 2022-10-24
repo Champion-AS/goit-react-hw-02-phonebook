@@ -7,16 +7,7 @@ import {ContactList} from './ContactList/ContactList';
 
 
 export class App extends Component {
-  static propTypes = {
-    filter: PropTypes.string,
-    contacts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-      })
-    ),
-  };
+  
   state = {
     contacts: [],
     filter: '',
@@ -68,8 +59,7 @@ export class App extends Component {
         }}>
         <h1>Phonebook</h1>
         <Phonebook
-          handleAddContact={this.handleSubmit}
-          onChangeName={this.onChangeName}
+          handleAddContact={this.handleSubmit}        
         />
         <h2>Contacts</h2>
         <Filter onChangeName={this.onChangeName} filter={this.state.filter} />
